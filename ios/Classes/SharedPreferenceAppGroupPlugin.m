@@ -55,6 +55,7 @@
     NSString *key = call.arguments[@"key"];
     NSNumber *value = call.arguments[@"value"];
     [self.userDefaults setBool:value.boolValue forKey:key];
+    [self.userDefaults synchronize]
     result(nil);
 }
 
@@ -67,6 +68,7 @@
     // It is best to store it as is and send it back when needed.
     // Platform channel will handle the conversion.
     [self.userDefaults setValue:value forKey:key];
+    [self.userDefaults synchronize]
     result(nil);
 }
 
@@ -76,6 +78,7 @@
     NSString *key = call.arguments[@"key"];
     NSNumber *value = call.arguments[@"value"];
     [self.userDefaults setDouble:value.doubleValue forKey:key];
+    [self.userDefaults synchronize]
     result(nil);
 }
 
@@ -85,6 +88,7 @@
     NSString *key = call.arguments[@"key"];
     NSString *value = call.arguments[@"value"];
     [self.userDefaults setValue:value forKey:key];
+    [self.userDefaults synchronize]
     result(nil);
 }
 
@@ -112,6 +116,7 @@
 
     NSString *key = call.arguments[@"key"];
     [self.userDefaults removeObjectForKey:key];
+    [self.userDefaults synchronize]
     result(nil);
 }
 
@@ -122,6 +127,7 @@
     for (NSString *key in allPreferences) {
         [self.userDefaults removeObjectForKey:key];
     }
+    [self.userDefaults synchronize]
     result(nil);
 }
 
@@ -132,6 +138,5 @@
         result([FlutterError errorWithCode:@"APP_GROUP_HAS_NOT_BEEN_SET" message:@"You need to call `setAppGroup` before using" details:nil]);
     }
 }
-
 
 @end
